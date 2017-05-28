@@ -1,0 +1,9 @@
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\bin\Debug\PlaytechUI.exe.config
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\bin\Debug\PlaytechUI.exe
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\bin\Debug\PlaytechUI.pdb
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\obj\Debug\PlaytechUI.csprojResolveAssemblyReference.cache
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\obj\Debug\PlaytechUI.MainForm.resources
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\obj\Debug\PlaytechUI.Properties.Resources.resources
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\obj\Debug\PlaytechUI.csproj.GenerateResource.Cache
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\obj\Debug\PlaytechUI.exe
+C:\Projects\#Projects\Playtech\PlaytechUI\PlaytechUI\obj\Debug\PlaytechUI.pdb

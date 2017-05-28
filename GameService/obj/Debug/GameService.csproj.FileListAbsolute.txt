@@ -1,9 +1,0 @@
-C:\Projects\#Projects\Playtech\GameService\GameService\bin\Debug\GameService.exe.config
-C:\Projects\#Projects\Playtech\GameService\GameService\bin\Debug\GameService.exe
-C:\Projects\#Projects\Playtech\GameService\GameService\bin\Debug\GameService.pdb
-C:\Projects\#Projects\Playtech\GameService\GameService\obj\Debug\GameService.csprojResolveAssemblyReference.cache
-C:\Projects\#Projects\Playtech\GameService\GameService\obj\Debug\GameService.GameService.resources
-C:\Projects\#Projects\Playtech\GameService\GameService\obj\Debug\GameService.ProjectInstaller.resources
-C:\Projects\#Projects\Playtech\GameService\GameService\obj\Debug\GameService.csproj.GenerateResource.Cache
-C:\Projects\#Projects\Playtech\GameService\GameService\obj\Debug\GameService.exe
-C:\Projects\#Projects\Playtech\GameService\GameService\obj\Debug\GameService.pdb

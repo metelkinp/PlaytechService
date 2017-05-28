@@ -80,15 +80,11 @@ namespace GameService
         protected override void OnStop()
         {
             int timeout = 10000;
-            var task = System.Threading.Tasks.Task.Factory.StartNew(() => StopServiceTask());
+            var task = System.Threading.Tasks.Task.Factory.StartNew(() => StopProcess());
 
             while (!task.Wait(timeout))
                 RequestAdditionalTime(timeout);
-        }
 
-        private void StopServiceTask()
-        {
-            StopProcess();
             eventLog.WriteEntry("Stop game service", EventLogEntryType.Information);
             ReleaseResource();
         }
