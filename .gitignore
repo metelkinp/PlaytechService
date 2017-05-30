@@ -1,3 +1,5 @@
 .vs/**
 GameService/bin/**
 GameService/obj/**
+PlaytechUI/PlaytechUI/bin/**
+PlaytechUI/PlaytechUI/obj/**

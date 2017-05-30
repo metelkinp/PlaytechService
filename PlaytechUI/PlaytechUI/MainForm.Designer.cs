@@ -77,7 +77,7 @@
             this.scriptsFolderInput.Name = "scriptsFolderInput";
             this.scriptsFolderInput.Size = new System.Drawing.Size(282, 20);
             this.scriptsFolderInput.TabIndex = 0;
-            this.scriptsFolderInput.Text = "C:\\cvd\\";
+            this.scriptsFolderInput.Text = "C:\\cvd";
             // 
             // groupBox2
             // 
