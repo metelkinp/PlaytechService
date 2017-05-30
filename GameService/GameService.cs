@@ -111,7 +111,10 @@ namespace GameService
                 process.StartInfo.FileName = processFile;
                 process.StartInfo.Arguments = scriptPath;
                 process.StartInfo.UseShellExecute = false;
-
+                process.StartInfo.CreateNoWindow = false;
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                process.StartInfo.WorkingDirectory = "C:\\cvd";
+                
                 process.EnableRaisingEvents = true;
                 process.Exited += new EventHandler(process_Exited);
 
