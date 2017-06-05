@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.ComponentModel;
-using System.Configuration.Install;
+using System.Reflection;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,11 +20,11 @@ namespace CVDGameService
         {
             string pythonPath = "python.exe";
 
-            string dir = Directory.GetCurrentDirectory();
+            string dir = Assembly.GetExecutingAssembly().Location;
 
-            string scriptPath = Path.GetFullPath(Path.Combine(dir, @"..\game.py"));
+            string scriptPath = Path.GetFullPath(Path.Combine(dir, @"..\..\game.py"));
 
-            string rootDir = Path.GetFullPath(Path.Combine(dir, @".."));
+            string rootDir = Path.GetFullPath(Path.Combine(dir, @"..\.."));
 
 
             Context.Parameters["assemblypath"] = "\"" + Context.Parameters["assemblypath"] + "\" \"" + pythonPath + "\" \"" + rootDir + "\" \"" + scriptPath + "\"";
