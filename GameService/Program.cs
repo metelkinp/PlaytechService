@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameService
+namespace CVDGameService
 {
     static class Program
     {
@@ -17,7 +17,7 @@ namespace GameService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new GameService(args)
+                new CVDGameService(args)
             };
             ServiceBase.Run(ServicesToRun);
         }

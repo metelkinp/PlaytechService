@@ -2,7 +2,7 @@
 using System.ServiceProcess;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.IO;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,71 +15,113 @@ namespace PlaytechUI
 {
     public partial class MainForm : Form
     {
+        private string projectDir;
+        private bool hasAnotherPath = false;
+        private bool afterInit = false;
+
         public MainForm()
         {
             InitializeComponent();
+
+            projectDir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @".."));
+            scriptsFolderInput.Text = projectDir;
+
+            EnableBrowseFolder(false);
+
+            InitializeHandlers();
+
+            afterInit = true;
+        }
+
+        private void EnableBrowseFolder(bool enable)
+        {
+            scriptsFolderInput.Enabled = enable;
+            browseButton.Enabled = enable;
+        }
+
+        private void InitializeHandlers()
+        {
+            CheckService(gameServiceController, gameRButton);
+
+            if (gameServiceController.Status.Equals(ServiceControllerStatus.Running))
+                ChangeStatus(String.Format("{0} is running", gameServiceController.DisplayName));
+
+            gameRButton.CheckedChanged += new EventHandler(this.gameRButton_CheckedChanged);
+            learnRButton.CheckedChanged += new EventHandler(this.learnRButton_CheckedChanged);
+            stopRButton.CheckedChanged += new EventHandler(this.stopRButton_CheckedChanged);
 
             timer.Tick += new EventHandler(CheckServices);
             timer.Start();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void browseButtonClick(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 this.scriptsFolderInput.Text = fbd.SelectedPath;
+                hasAnotherPath = true;
             }
         }
 
         private void stopRButton_CheckedChanged(object sender, EventArgs e)
         {
-            try
+            if (afterInit)
             {
-                StopService(gameServiceController);
-                StopService(learningServiceController);
-                ChangeStatus("All services was stopped");
-            }
-            catch (Exception ex)
-            {
-                ChangeStatus("ERROR: Can't stop services. Try again");
-                stopRButton.Checked = false;
+                try
+                {
+                    StopService(gameServiceController);
+                    StopService(learningServiceController);
+                    ChangeStatus("All services was stopped");
+                    EnableBrowseFolder(true);
+                }
+                catch (Exception ex)
+                {
+                    ChangeStatus("ERROR: Can't stop services. Try again");
+                    stopRButton.Checked = false;
+                }
             }
         }
 
         private void gameRButton_CheckedChanged(object sender, EventArgs e)
         {
-            try
+            if (afterInit)
             {
-                StopService(learningServiceController);
+                try
+                {
+                    StopService(learningServiceController);
 
-                StartService(gameServiceController, gameRButton);
-            }
-            catch (Exception ex)
-            {
-                ChangeStatus(String.Format("ERROR: Can't stop {0}. Try again", learningServiceController.DisplayName));
-                gameRButton.Checked = false;
+                    StartService(gameServiceController, gameRButton);
+                }
+                catch (Exception ex)
+                {
+                    ChangeStatus(String.Format("ERROR: Can't stop {0}. Try again", learningServiceController.DisplayName));
+                    gameRButton.Checked = false;
+                }
             }
         }
 
         private void learnRButton_CheckedChanged(object sender, EventArgs e)
         {
-            try
+            if (afterInit)
             {
-                StopService(gameServiceController);
+                try
+                {
+                    StopService(gameServiceController);
 
-                StartService(learningServiceController, learnRButton);
-            }
-            catch (Exception ex)
-            {
-                ChangeStatus(String.Format("ERROR: Can't stop {0}. Try again", gameServiceController.DisplayName));
-                learnRButton.Checked = false;
+                    StartService(learningServiceController, learnRButton);
+                }
+                catch (Exception ex)
+                {
+                    ChangeStatus(String.Format("ERROR: Can't stop {0}. Try again", gameServiceController.DisplayName));
+                    learnRButton.Checked = false;
+                }
             }
         }
 
         private void ChangeStatus(string message)
         {
-            statusBar.Panels[0].Text = "    " + message;
+            statusBar.Panels[0].Text = "   " + message;
         }
 
         private void StopService(ServiceController service)
@@ -105,15 +147,24 @@ namespace PlaytechUI
                 {
                     ChangeStatus(String.Format("Running {0} ...", service.DisplayName));
 
-                    string path = scriptsFolderInput.Text;
-                    path += service.Equals(gameServiceController) ? "\\game.py" : "\\learn.py";
+                    if (hasAnotherPath)
+                    {
+                        string serviceName = service.Equals(gameServiceController) ? "game.py" : "learn.py";
+                        string path = Path.GetFullPath(Path.Combine(scriptsFolderInput.Text, serviceName));
 
-                    string[] args = new string[] {@path};
+                        string[] args = new string[] { @path };
 
-                    service.Start(args);
+                        service.Start(args);
+                    } else
+                    {
+                        service.Start();
+                    }
+
                     service.WaitForStatus(ServiceControllerStatus.Running);
 
                     ChangeStatus(String.Format("{0} is running", service.DisplayName));
+
+                    EnableBrowseFolder(false);
                 }
                 catch (Exception ex)
                 {
@@ -126,8 +177,11 @@ namespace PlaytechUI
 
         private void CheckServices(object mObject, EventArgs args)
         {
-            CheckService(gameServiceController, gameRButton);
-            CheckService(learningServiceController, learnRButton);
+            if (afterInit)
+            {
+                CheckService(gameServiceController, gameRButton);
+                CheckService(learningServiceController, learnRButton);
+            }
         }
 
         private void CheckService(ServiceController service, RadioButton target)

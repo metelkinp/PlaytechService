@@ -1,6 +1,6 @@
-﻿namespace GameService
+﻿namespace CVDGameService
 {
-    partial class GameService
+    partial class CVDGameService
     {
         /// <summary> 
         /// Required designer variable.
@@ -33,9 +33,9 @@
             this.eventLog = new System.Diagnostics.EventLog();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog)).BeginInit();
             // 
-            // GameService
+            // CVDGameService
             // 
-            this.ServiceName = "GameService";
+            this.ServiceName = "CVDGameService";
             ((System.ComponentModel.ISupportInitialize)(this.eventLog)).EndInit();
 
         }

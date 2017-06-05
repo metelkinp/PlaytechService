@@ -34,7 +34,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.browseButton = new System.Windows.Forms.Button();
             this.scriptsFolderInput = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.stopRButton = new System.Windows.Forms.RadioButton();
@@ -52,7 +52,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.browseButton);
             this.groupBox1.Controls.Add(this.scriptsFolderInput);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -61,15 +61,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Scripts folder";
             // 
-            // button1
+            // browseButton
             // 
-            this.button1.Location = new System.Drawing.Point(294, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(60, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Browse";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.browseButton.Location = new System.Drawing.Point(294, 17);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(60, 23);
+            this.browseButton.TabIndex = 1;
+            this.browseButton.Text = "Browse";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Click += new System.EventHandler(this.browseButtonClick);
             // 
             // scriptsFolderInput
             // 
@@ -77,7 +77,6 @@
             this.scriptsFolderInput.Name = "scriptsFolderInput";
             this.scriptsFolderInput.Size = new System.Drawing.Size(282, 20);
             this.scriptsFolderInput.TabIndex = 0;
-            this.scriptsFolderInput.Text = "C:\\cvd";
             // 
             // groupBox2
             // 
@@ -98,14 +97,13 @@
             this.stopRButton.Name = "stopRButton";
             this.stopRButton.Size = new System.Drawing.Size(47, 17);
             this.stopRButton.TabIndex = 2;
-            this.stopRButton.TabStop = true;
             this.stopRButton.Text = "Stop";
             this.stopRButton.UseVisualStyleBackColor = true;
-            this.stopRButton.CheckedChanged += new System.EventHandler(this.stopRButton_CheckedChanged);
             // 
             // gameRButton
             // 
             this.gameRButton.AutoSize = true;
+            this.gameRButton.Checked = true;
             this.gameRButton.Location = new System.Drawing.Point(30, 19);
             this.gameRButton.Name = "gameRButton";
             this.gameRButton.Size = new System.Drawing.Size(53, 17);
@@ -113,7 +111,6 @@
             this.gameRButton.TabStop = true;
             this.gameRButton.Text = "Game";
             this.gameRButton.UseVisualStyleBackColor = true;
-            this.gameRButton.CheckedChanged += new System.EventHandler(this.gameRButton_CheckedChanged);
             // 
             // learnRButton
             // 
@@ -122,18 +119,16 @@
             this.learnRButton.Name = "learnRButton";
             this.learnRButton.Size = new System.Drawing.Size(66, 17);
             this.learnRButton.TabIndex = 0;
-            this.learnRButton.TabStop = true;
             this.learnRButton.Text = "Learning";
             this.learnRButton.UseVisualStyleBackColor = true;
-            this.learnRButton.CheckedChanged += new System.EventHandler(this.learnRButton_CheckedChanged);
             // 
             // gameServiceController
             // 
-            this.gameServiceController.ServiceName = "GameService";
+            this.gameServiceController.ServiceName = "CVDGameService";
             // 
             // learningServiceController
             // 
-            this.learningServiceController.ServiceName = "LearningService";
+            this.learningServiceController.ServiceName = "CVDLearningService";
             // 
             // statusBar
             // 
@@ -182,7 +177,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.TextBox scriptsFolderInput;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton gameRButton;

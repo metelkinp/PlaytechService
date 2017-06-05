@@ -1,4 +1,4 @@
-﻿namespace GameService
+﻿namespace CVDGameService
 {
     partial class ProjectInstaller
     {
@@ -39,9 +39,10 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "Windows Service for Playtech Game";
-            this.serviceInstaller1.DisplayName = "Playtech Game";
-            this.serviceInstaller1.ServiceName = "GameService";
+            this.serviceInstaller1.Description = "Windows Service for Playtech CVD Game";
+            this.serviceInstaller1.DisplayName = "Playtech CVD Game";
+            this.serviceInstaller1.ServiceName = "CVDGameService";
+            this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 

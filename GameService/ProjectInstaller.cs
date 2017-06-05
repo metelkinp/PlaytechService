@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using System.ComponentModel;
 using System.Configuration.Install;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GameService
+namespace CVDGameService
 {
     [RunInstaller(true)]
     public partial class ProjectInstaller : System.Configuration.Install.Installer
@@ -19,9 +19,15 @@ namespace GameService
         protected override void OnBeforeInstall(IDictionary savedState)
         {
             string pythonPath = "python.exe";
-            string scriptPath = "C:\\playtech_card_recognintion\\game.py";
 
-            Context.Parameters["assemblypath"] = "\"" + Context.Parameters["assemblypath"] + "\" \"" + pythonPath + "\" \"" + scriptPath + "\"";
+            string dir = Directory.GetCurrentDirectory();
+
+            string scriptPath = Path.GetFullPath(Path.Combine(dir, @"..\game.py"));
+
+            string rootDir = Path.GetFullPath(Path.Combine(dir, @".."));
+
+
+            Context.Parameters["assemblypath"] = "\"" + Context.Parameters["assemblypath"] + "\" \"" + pythonPath + "\" \"" + rootDir + "\" \"" + scriptPath + "\"";
 
             base.OnBeforeInstall(savedState);
         }

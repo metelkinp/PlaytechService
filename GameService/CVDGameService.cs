@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.IO;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,7 +9,7 @@ using System.ServiceProcess;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace GameService
+namespace CVDGameService
 {
     public enum ServiceState
     {
@@ -34,7 +34,7 @@ namespace GameService
         public long dwWaitHint;
     }
 
-    public partial class GameService : ServiceBase
+    public partial class CVDGameService : ServiceBase
     {
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
@@ -44,20 +44,22 @@ namespace GameService
 
         private Mutex mutex;
 
-        private string processFile;
-        private string processArgs;
+        private string processExecutablePath;
+        private string rootDir;
+        private string scriptPath;
 
         private Process process;
 
-        public GameService(string[] args)
+        public CVDGameService(string[] args)
         {
             InitializeComponent();
             InitializeLog();
 
-            if (args.Count() > 1)
+            if (args.Count() > 2)
             {
-                processFile = @args[0];
-                processArgs = @args[1];
+                processExecutablePath = @args[0];
+                rootDir = @args[1];
+                scriptPath = @args[2];
             }
         }
 
@@ -93,8 +95,11 @@ namespace GameService
         {
             string pyPattern = @"^.*\.(py)$";
             string exePattern = @"^.*\.(exe)$";
-            string scriptPath = ValidatePath(path, pyPattern) ? path : ValidatePath(processArgs) ? processArgs : null;
-            string filePath = ValidatePath(processFile, exePattern) ? processFile : "python.exe";
+
+            string scriptPath = ValidatePath(path, pyPattern) ? path : ValidatePath(this.scriptPath) ? this.scriptPath : null;
+            string exePath = ValidatePath(processExecutablePath, exePattern) ? processExecutablePath : "python.exe";
+
+            eventLog.WriteEntry(String.Format("Game process will running with arguments: {0} {1}", exePath, scriptPath), EventLogEntryType.Warning);
 
             //invalid arguments clause
             if (String.IsNullOrEmpty(scriptPath))
@@ -108,12 +113,15 @@ namespace GameService
 
             try
             {
-                process.StartInfo.FileName = processFile;
+                process.StartInfo.FileName = exePath;
                 process.StartInfo.Arguments = scriptPath;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = false;
                 process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-                process.StartInfo.WorkingDirectory = "C:\\cvd";
+
+                string dir = ValidatePath(path, pyPattern) ? Path.GetFullPath(path).Replace("game.py", "") : ValidatePath(rootDir) ? rootDir : Path.GetFullPath(scriptPath).Replace("game.py", "");
+
+                process.StartInfo.WorkingDirectory = dir;
                 
                 process.EnableRaisingEvents = true;
                 process.Exited += new EventHandler(process_Exited);

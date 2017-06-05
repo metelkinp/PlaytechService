@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{402F6178-AA64-4137-96F9-6F08676F6B2E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GameService</RootNamespace>
-    <AssemblyName>GameService</AssemblyName>
+    <RootNamespace>CVDGameService</RootNamespace>
+    <AssemblyName>CVDGameService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>GameService.Program</StartupObject>
+    <StartupObject>CVDGameService.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,11 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameService.cs">
+    <Compile Include="CVDGameService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameService.Designer.cs">
-      <DependentUpon>GameService.cs</DependentUpon>
+    <Compile Include="CVDGameService.Designer.cs">
+      <DependentUpon>CVDGameService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
@@ -67,8 +67,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GameService.resx">
-      <DependentUpon>GameService.cs</DependentUpon>
+    <EmbeddedResource Include="CVDGameService.resx">
+      <DependentUpon>CVDGameService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
